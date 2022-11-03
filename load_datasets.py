@@ -7,7 +7,7 @@ import numpy as np
 
 
 def load_dataset(dataset, attr = ['attr'], labels= 'labels'):
-    if dataset in ['CORA-ORIG', 'CITESEER-ORIG', 'PUBMED-ORIG', 'CHAMELEON', 'CITESEER-ORIG-LCC']:
+    if dataset in ['CORA-ORIG', 'CITESEER-ORIG', 'PUBMED-ORIG']:
         X, y_target, adj = load_dataset_npz(dataset.lower(), attr, labels)     
     if dataset in ['WIKIVITALS_NEW']:
         X, y_target, adj = load_dataset_npz(dataset.lower(), attr = ['attr'], labels= 'labels_1')
