@@ -76,6 +76,4 @@ datasets/pubmed-orig/pubmed-orig_test_splits_sparse_strat.txt
 datasets/pubmed-orig/pubmed-orig-save.npz
 datasets/pubmed-orig/pubmed-orig2.npz
 datasets/pubmed-orig/pubmed-orig3.npz
-datasets/wikivitals_new/wikivitals_new_splits.txt
-datasets/wikivitals_new/wikivitals_new.npz
 grid_search_wikivitals.py
