@@ -1,13 +1,8 @@
 import torch
 import numpy as np
-from sklearn.model_selection import train_test_split
-from math import floor, ceil
+from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold, StratifiedKFold
 import random
 import load_datasets
-
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.model_selection import StratifiedKFold
-
 
 
 
