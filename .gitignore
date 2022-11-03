@@ -77,3 +77,6 @@ datasets/pubmed-orig/pubmed-orig-save.npz
 datasets/pubmed-orig/pubmed-orig2.npz
 datasets/pubmed-orig/pubmed-orig3.npz
 grid_search_wikivitals.py
+results/raw/results_wikivitals_MLP_20.out
+results/raw/results_wikivitals_MLP_spstrat.out
+results/raw/results_wikivitals_MLP_s.out

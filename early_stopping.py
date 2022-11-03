@@ -15,7 +15,7 @@ class EarlyStoppingCriterion(object):
         raise NotImplementedError
 
 
-class NoStoppingCriterion(EarlyStoppingCriterion):
+class NoStoppingCriterion(EarlyStoppingCriterion): # not used
     
     def should_stop(self, epoch, val_loss, val_accuracy):
         return False
@@ -27,7 +27,7 @@ class NoStoppingCriterion(EarlyStoppingCriterion):
         pass
 
 
-class GCNCriterion(EarlyStoppingCriterion):
+class GCNCriterion(EarlyStoppingCriterion): # not used
     def __init__(self, patience):
         super().__init__(patience)
         self.val_losses = []

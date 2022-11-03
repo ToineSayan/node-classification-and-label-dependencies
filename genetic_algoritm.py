@@ -1,5 +1,4 @@
 import random
-random.seed(42)
 from statistics import mean
 import math
 
@@ -32,7 +31,7 @@ class GA:
         self.max_fitness = 0
 
         # Algorithm
-        self.iterations = 35 # Stopping criterion (number of iterations)
+        self.iterations = 50 # Stopping criterion (number of iterations)
         self.early_stopping = 5 # Stopping criterion (Number of iterations without increasing the average fitness of individuals in the population)
         self.stop_early_counter = 0
 
@@ -76,7 +75,8 @@ class GA:
 
     def fitness(self): # to be redefinesd
         f = dict()
-        fitness = lambda t: max(self.min_fitness*(1+1/(100-sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))), 1/10*sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))
+        # fitness = lambda t: max(self.min_fitness*(1+1/(100-sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))), 1/10*sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))
+        fitness = lambda t: sum([((-1)**(i+1))*(i+1)*t[i] for i in range(len(t))])
         for t in self.new_individuals:
             f[t] = fitness(t)
         return f
@@ -226,6 +226,16 @@ class GA:
 
 
 if __name__ == "__main__":
+    # default genetic algorithm tries to find the maximum of a simple function
+    # f(x1,x2, ..., x50) = sum_i [(-1)^i * xi * i]
+    # with xi in {0, 1} for all i
+    # The best and unique solution is (x1, x2, x3, x4, ..., x47, x48, x49, x50) = (0, 1, 0, 1, ..., 0, 1, 0, 1)
+    # And the maximum is 650
+    random.seed(42)
     ga = GA()
+    search_space_size = math.prod([len(i) for i in ga.grid])
+    print(f"Search space size: {search_space_size} individuals")
     ga.algo()
-    ga.print_100_best()
+    print(f"Individuals evaluated: {len(ga.population_history.keys())} individuals")
+    print(f'Maximum found: {ga.max_fitness}')
+    print(f'Best individual: {ga.best_individual}')

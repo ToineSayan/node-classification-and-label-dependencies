@@ -19,5 +19,12 @@
     "iterations": 20,
     "k_num_splits": 10,
 
-    "GMNN_architecture": false
+    "GMNN_architecture": false,
+    "EM_loops": 0,
+    "EM_epochs": 0,
+    "save_models_during_EM_phases": false,
+    "tau_p": 0.1,
+    "draw": "smp",
+    "use_features_p": false,
+    "use_gold_p": true
 }
