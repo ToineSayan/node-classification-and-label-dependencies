@@ -1,4 +1,4 @@
-# GNN-models
+# Fair Evaluation of Graph Markov Neural Networks in PyTorch
 
 PyTorch implementation of A Fair Evaluation of Graph Markov Neural Networks
 
