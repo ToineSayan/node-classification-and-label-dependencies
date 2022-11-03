@@ -1,0 +1,23 @@
+{
+    "normalization": "global-L1",
+    "binarize": true,
+
+    "seed": 42,
+
+    "normalization_trick": null,
+    "to_symmetric": null,
+    "add_self_links": null,
+
+    "optimizer": "adam",
+    "decay_policy": [-1],
+
+    "splitting_method": "pre_computed",
+
+    "epochs": 1000,
+    "early_stopping_type": "LossDecreaseCriterion",
+    "early_stopping": 200,
+    "iterations": 20,
+    "k_num_splits": 10,
+
+    "GMNN_architecture": false
+}

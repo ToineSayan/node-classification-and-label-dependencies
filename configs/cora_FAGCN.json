@@ -1,0 +1,32 @@
+{
+    "dataset": "CORA-ORIG",
+    "normalization": "global-L1",
+    "binarize": true,
+
+    "normalization_trick": "normalize_D-0.5",
+    "to_symmetric": null,
+    "add_self_links": null,
+
+
+    "seed": 42,
+
+    "model": "FAGCN",
+    "hidden_dims": [16],
+    "input_dropout": 0.6,
+    "dropout": 0.6,
+    "optimizer": "adam",
+    "lr": 0.01,
+    "decay": 1e-3,
+    "decay_policy": [-1],
+    "fagcn_epsilon": 0.2,
+    "fagcn_num_prop": 4,
+
+
+    "splitting_method": "pre_computed",
+    "split_name": "planetoid",
+
+    "epochs": 1000,
+    "early_stopping_type": "AccuracyAndLossVariationsCriterion",
+    "early_stopping": 200,
+    "iterations": 100
+}

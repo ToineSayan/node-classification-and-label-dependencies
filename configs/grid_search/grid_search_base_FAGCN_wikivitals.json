@@ -1,0 +1,36 @@
+{
+    "grid": {
+        "hidden_dims": [
+            [32],
+            [64]
+        ],
+        "input_dropout": [0.2, 0.4, 0.6, 0.8],
+        "dropout": [0.2, 0.4, 0.6, 0.8],
+        "lr": [0.1, 0.05, 0.01, 5e-3],
+        "decay": [1e-4, 5e-5, 1e-5],
+        "fagcn_epsilon": [0.7, 0.8, 0.9]
+    },
+
+    "dataset": "WIKIVITALS_NEW",
+    "normalization": "global-L1",
+    "binarize": true,
+
+    "normalization_trick": "normalize_D-0.5",
+    "to_symmetric": null,
+    "add_self_links": null,
+
+    "seed": 42,
+
+    "model": "FAGCN",
+    "optimizer": "adam",
+    "decay_policy": [-1],
+    "fagcn_num_prop": 2,
+
+
+    "splitting_method": "pre_computed",
+    "split_name": "none",
+
+    "epochs": 1000,
+    "early_stopping_type": "AccuracyAndLossVariationsCriterion",
+    "early_stopping": 200
+}

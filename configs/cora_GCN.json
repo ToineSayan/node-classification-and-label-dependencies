@@ -1,0 +1,29 @@
+{
+    "dataset": "CORA-ORIG",
+    "normalization": "global-L1",
+    "binarize": true,
+
+    "seed": 42,
+
+
+    "normalization_trick": "normalize_D-0.5",
+    "to_symmetric": true,
+    "add_self_links": true,
+
+    "model": "GCN",
+    "hidden_dims": [16],
+    "input_dropout": 0.8,
+    "dropout": 0.6,
+    "optimizer": "adam",
+    "lr": 0.01,
+    "decay": 1e-3,
+    "decay_policy": [-1],
+
+    "splitting_method": "pre_computed",
+    "split_name": "planetoid",
+
+    "epochs": 1000,
+    "early_stopping_type": "LossDecreaseCriterion",
+    "early_stopping": 200,
+    "iterations": 100
+}
