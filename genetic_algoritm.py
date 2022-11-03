@@ -25,7 +25,6 @@ class GA:
 
         # Fitness
         self.min_fitness = 0.01 # in order to define a strictly positive evaluation
-        # self.f = lambda t: max(self.min_fitness*(1+1/(100-sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))), 1/10*sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))
         self.average_fitness = 0
         self.best_average_fitness = 0
         self.max_fitness = 0
@@ -50,7 +49,6 @@ class GA:
         self.stop_early_counter = 0
 
     def generate_initial_population(self):
-
         while len(self.population) < self.pop_size:
             tmp = tuple([random.choice(j) for j in self.grid])
             self.population.add(tmp)
@@ -62,7 +60,7 @@ class GA:
         for t in self.new_individuals:
             self.population_history[t] = f[t]
         self.new_individuals = set()
-        fitnesses = [self.population_history[t] for t in list(self.population)] # ne pas recalculer celles précédemment calculées
+        fitnesses = [self.population_history[t] for t in list(self.population)] # don't compute again what has already been computed
         self.average_fitness = mean(fitnesses)
         self.max_fitness = max(fitnesses)
         # update the counter for early stopping
@@ -73,9 +71,8 @@ class GA:
             self.stop_early_counter += 1
         return None
 
-    def fitness(self): # to be redefinesd
+    def fitness(self): # to be redefined when using it for another application
         f = dict()
-        # fitness = lambda t: max(self.min_fitness*(1+1/(100-sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))), 1/10*sum([-(i-25)**2 + 10 for i in range(len(t)) if t[i] == 1]))
         fitness = lambda t: sum([((-1)**(i+1))*(i+1)*t[i] for i in range(len(t))])
         for t in self.new_individuals:
             f[t] = fitness(t)
@@ -86,10 +83,8 @@ class GA:
         # Rule: select the best individuals of the population such that their fitness
         # is higher than the average of the fitnesses calculated on the whole population 
         # (and within the limit, in number, of half the individuals of the population) 
-
         pop = list(self.population)
-        fitnesses = [self.population_history[t] for t in pop] # ne pas recalculer celles précédemment calculées
-
+        fitnesses = [self.population_history[t] for t in pop] # don't compute again what has already been computed
         selected = sorted([(a,b) for a,b in zip(fitnesses, pop) if a > self.average_fitness], reverse = True)
         # At least, we need to keep 2 individuals
         if len(selected) == 1:
@@ -184,7 +179,6 @@ class GA:
         # If less than 100 individuals in population history, print all individuals
         r = sorted([(self.population_history[t], t) for t in self.population_history.keys()], reverse=True)
         for i in range(min(len(r), 100)):
-            # reports.print_report_line(self.phase, 'First best individuals', {"rank": i, "fitness": r[i][0], "individual": r[i][1]})
             print(f'First best individuals -- rank: {i}, fitness: {r[i][0]}, individual: {r[i][1]}')
 
     def print_all(self):
@@ -196,33 +190,16 @@ class GA:
         self.generate_initial_population()
         self.update_individuals_iter(0)
         self.evaluate_new_individuals()
-        # reports.print_report_line(self.phase, 'End of first generation', {"iteration": 0, "fitness max": self.max_fitness, "fitness avg": self.average_fitness, "best individuals selected": self.num_selected, "new individuals": self.pop_size-self.num_selected, "total individuals evaluated": len(self.population_history.keys())})
         for i in range(self.iterations):
             self.select_best() # reduce the size of the population to the best elements
-            # reports.print_report_line(self.phase, 'Best individuals selected', {"number": len(self.population)})
-            # print(f'Number of best individuals selected: {len(self.population)}')
             self.update_pop() # add new individuals to the population (via crossover and mutation)
-            # print(f'Population size: {len(self.population)}')
-            # reports.print_report_line(self.phase, 'New individuals in the population', {"number": len(self.new_individuals)})
-            # print(f'New_individuals: {len(self.new_individuals)}')
             self.update_individuals_iter(i+1)
             self.evaluate_new_individuals()
-            # reports.print_report_line(self.phase, 'Total individuals evaluated in history',{"number": len(self.population_history.keys())} )
 
-            # reports.print_report_line(self.phase, 'End of a generation', {"iteration": i+1, "fitness max": self.max_fitness, "fitness avg": self.average_fitness, "best individuals selected": self.num_selected, "new individuals": self.pop_size-self.num_selected, "total individuals evaluated": len(self.population_history.keys())})
-            # print(f'Number of individuals encountered: {len(self.population_history.keys())}')
-            # if self.stop_early_counter == self.early_stopping:
-            #     reports.print_report_line(self.phase, 'Early stopping', {"iteration": i+1})
-            #     # print(f'\nEarly stopping after {i+1} iterations')
-            #     break
         r = sorted([(self.population_history[t], t) for t in self.population], reverse=True)
         self.best_individual = r[0][1]
         self.max_fitness = self.population_history[self.best_individual]
 
-        # reports.print_report_line(self.phase, "Results", {"fitness max": self.max_fitness, "fount at iteration": self.individuals_iter[self.best_individual], "best individual": self.best_individual})
-        # print(f'end algo gen. Fitness max: {self.max_fitness}, found at iteration: {self.individuals_iter[self.best_individual]}, best individual: {self.best_individual}')
-
-        # print(f'RESULTS: fitness max = {self.max_fitness}, best_individual = {self.best_individual}, found at iteration = {self.individuals_iter[self.best_individual]}')
 
 
 if __name__ == "__main__":
