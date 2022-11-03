@@ -66,16 +66,6 @@ models/__pycache__/graphSAGE.cpython-39.pyc
 models/__pycache__/perceptron.cpython-39.pyc
 models/graphSAGE.py
 models/gmnn.py
-datasets/citeseer-orig/citeseer-orig_splits.txt
-datasets/citeseer-orig/citeseer-orig.npz
-datasets/citeseer-orig/ind.citeseer.allx
-datasets/citeseer-orig/ind.citeseer.ally
-datasets/citeseer-orig/ind.citeseer.graph
-datasets/citeseer-orig/ind.citeseer.test.index
-datasets/citeseer-orig/ind.citeseer.tx
-datasets/citeseer-orig/ind.citeseer.ty
-datasets/citeseer-orig/ind.citeseer.x
-datasets/citeseer-orig/ind.citeseer.y
 datasets/cora-orig/cora-orig_splits_SAVE.txt
 datasets/cora-orig/cora-orig_splits_SAVE2.txt
 datasets/cora-orig/cora-orig_test_splits_sparse_strat.txt
