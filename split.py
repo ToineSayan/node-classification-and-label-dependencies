@@ -25,13 +25,13 @@ def sets_statistics(y_target, tuple_of_sets):
 
 def train_val_test_split(
     y_target = None,
-    splitting_method = 'pre-computed',
+    splitting_method = 'pre_computed',
     size_per_class = 20,
     set_sizes = [140, 500, 1000],
     dataset = 'CORA-ORIG',
     split_name = 'planetoid'
     ):
-    if splitting_method == 'pre-computed':
+    if splitting_method == 'pre_computed':
         return load_pre_computed(dataset.lower(), split_name)
     elif splitting_method == 'random-with-stratified-train':
         return split_random_with_stratified_train(y_target, size_per_class, set_sizes)

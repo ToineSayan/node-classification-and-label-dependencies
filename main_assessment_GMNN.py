@@ -6,6 +6,7 @@ from split import train_val_test_split
 from GMNN import GMNN
 
 from scipy.stats import ttest_rel
+import numpy as np
 from math import floor, log10
 
 import argparse
@@ -51,6 +52,8 @@ cuda = torch.cuda.is_available()
 opt = json.load(open(f'./configs/assessment/assessment_GMNN_{model_}.json', 'r', encoding='utf8'))
 opt['dataset'] = dataset_
 opt['model'] = model_
+opt['EM_loops'] = 1
+print(opt)
 
 # ----- LOAD THE BEST CONFIGURATIONS OF HYPERPARAMETERS CALCULATED
 model_selection_results = json.load(open(f'./configs/grid_search/model_selection_results.json', 'r', encoding='utf8'))
@@ -62,15 +65,10 @@ best_configurations = [dict(zip(tmp2, tmp[i])) for i in range(len(tmp))]
 # ----- LOAD DATASET -----
 # Loading and pre-processing of data
 X, y_target, adj = load_datasets.load_dataset(opt['dataset'])
-num_nodes, num_features = X.shape
-num_classes = torch.unique(y_target).shape[0]
-opt['num_nodes'], opt['num_features'], opt['num_classes'] = num_nodes, num_features, num_classes
 # Feature binarization (X unchanged if opt['binarize'] == False)
 X = load_datasets.binarize_features(X, opt['binarize'])
 # Feature normalization (X unchanged if opt['normalization'] == "None")
 X = load_datasets.normalize_features(X, opt['normalization'])
-# Binarize y_target 
-y_target_bin = torch.nn.functional.one_hot(y_target)
 # adjacency matrix normalization
 adj_norm = load_datasets.transform_adjacency(
     adj, 
@@ -78,6 +76,28 @@ adj_norm = load_datasets.transform_adjacency(
     opt['to_symmetric'],
     opt['add_self_links']
     )
+
+# Transform to tensors
+tmp = X.tocoo()
+indices = torch.LongTensor(np.vstack((tmp.row, tmp.col)))
+values = torch.FloatTensor(tmp.data)
+X = torch.sparse.FloatTensor(indices, values, tmp.shape).to_dense()
+
+y_target = torch.LongTensor(y_target)
+
+tmp = adj_norm.tocoo()
+indices = torch.LongTensor(np.vstack((tmp.row, tmp.col)))
+values = torch.FloatTensor(tmp.data)
+adj_norm = torch.sparse.FloatTensor(indices, values, tmp.shape)
+
+# One hot enconding of y_target 
+y_target_bin = torch.nn.functional.one_hot(y_target)
+num_classes = torch.unique(y_target).shape[0]
+num_nodes, num_features = X.shape
+opt['num_nodes'], opt['num_features'], opt['num_classes'] = num_nodes, num_features, num_classes
+
+
+
 
 init_results = [] # will be used to store the results of the pre-training phase
 final_results = [] # will be used to store the results of EM-loops phase

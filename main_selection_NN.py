@@ -2,6 +2,7 @@ import sys, copy
 import ast
 import argparse
 import torch
+import numpy as np
 import json
 import random
 import load_datasets
@@ -41,29 +42,42 @@ opt = json.load(open(f'./configs/grid_search/grid_search_base_{model_}.json', 'r
 opt['dataset'] = dataset_
 opt['model'] = model_
 
-# ----- INITIATE GRID SEARCH CLASS -----
+# ----- INITIALIZE GRID SEARCH CLASS -----
 gs = GA_grid_search(opt["grid"])
 
 # ----- LOAD DATASET -----
 # Loading and pre-processing of data
 X, y_target, adj = load_datasets.load_dataset(opt['dataset'])
-num_nodes, num_features = X.shape
-num_classes = torch.unique(y_target).shape[0]
-opt['num_nodes'], opt['num_features'], opt['num_classes'] = num_nodes, num_features, num_classes
 # Feature binarization (X unchanged if opt['binarize'] == False)
 X = load_datasets.binarize_features(X, opt['binarize'])
 # Feature normalization (X unchanged if opt['normalization'] == "None")
 X = load_datasets.normalize_features(X, opt['normalization'])
-# Binarize y_target 
-y_target_bin = torch.nn.functional.one_hot(y_target)
 # adjacency matrix normalization
-
 adj_norm = load_datasets.transform_adjacency(
     adj, 
     opt['normalization_trick'],
     opt['to_symmetric'],
     opt['add_self_links']
     )
+
+# Transform to tensors
+tmp = X.tocoo()
+indices = torch.LongTensor(np.vstack((tmp.row, tmp.col)))
+values = torch.FloatTensor(tmp.data)
+X = torch.sparse.FloatTensor(indices, values, tmp.shape).to_dense()
+
+y_target = torch.LongTensor(y_target)
+
+tmp = adj_norm.tocoo()
+indices = torch.LongTensor(np.vstack((tmp.row, tmp.col)))
+values = torch.FloatTensor(tmp.data)
+adj_norm = torch.sparse.FloatTensor(indices, values, tmp.shape)
+
+# One hot enconding of y_target 
+y_target_bin = torch.nn.functional.one_hot(y_target)
+num_classes = torch.unique(y_target).shape[0]
+num_nodes, num_features = X.shape
+opt['num_nodes'], opt['num_features'], opt['num_classes'] = num_nodes, num_features, num_classes
 
 
 
