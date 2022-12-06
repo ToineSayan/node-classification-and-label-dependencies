@@ -1,6 +1,8 @@
-# Fair Evaluation of Graph Markov Neural Networks in PyTorch
+# Fair Evaluation of Graph Markov Neural Networks 
 
-PyTorch implementation of A Fair Evaluation of Graph Markov Neural Networks
+This is a PyTorch implementation of A Fair Evaluation of Graph Markov Neural Networks
+
+**Abstract**
 
 Graph Markov Neural Networks (GMNN) have recently been proposed to improve regular graph neural networks (GNN) by including label dependencies into the semi-supervised node classification task. They do this in a theoretically principled way and use three kinds of information to predict labels. Just like ordinary GNNs they use the node features and the graph structure but they moreover leverage information from the labels of neighboring nodes to improve the accuracy of their predictions. In this paper we introduce a new dataset named *WikiVitals* which contains a graph of 48k mutually referred Wikipedia articles classified into 32 categories and connected by 2.3M edges. Our aim is to rigorously evaluate the contributions of three distinct sources of information to the prediction accuracy of GMNN for this dataset: the content of the articles, their connections with each other and the correlations among their labels. For this purpose we adapt a method which was recently proposed for performing fair comparisons of GNN performance using an appropriate randomization over partitions and a clear separation of model selection and model assessment.
 
@@ -11,7 +13,6 @@ Graph Markov Neural Networks (GMNN) have recently been proposed to improve regul
 
 ## Requirements
 - Python > 3.10.6 
-
 - numpy
 - scikit-learn
 - scipy
