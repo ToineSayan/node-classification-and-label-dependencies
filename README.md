@@ -52,19 +52,5 @@ Press, 2021.<br/>
 - Cora, Citeseer, and Pubmed:<br/>
 **Datasets:** Retrieved from [GCN implementation](https://github.com/tkipf/gcn/tree/master/gcn/data) by Thomas Kipf.<br/>
 **Source code:** We used [Kipf method](https://github.com/tkipf/gcn/blob/master/gcn/utils.py) to get Cora, Citeseer, and Pubmed data (and the canonical split from Planetoid). Especially, this method fixes citeseer dataset (there are some isolated nodes in the graph), it finds isolated nodes and adds them as zero-vecs into the right position.
-- WikiVitals:<br/>
-**Dataset:** Created by us, it also has its own [source repository](https://github.com/ToineSayan/wikivitals-lvl5-dataset).
 
 
-
-## Some results
-
-**MLP (not a GNN of course, but included)**
-
-**GCN:**
-- CORA: 83.23% (0.47)
-
-**FAGCN:**
-- CORA: 83.95% (0.58)  (paper: 84.1% (0.5))
-- CITESEER: 71.42% (1.05) (paper: 72.7% (0.8))
-- PUBMED: 80.04% (0.75) (paper: 79.4% (0.3))
