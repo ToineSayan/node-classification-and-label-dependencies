@@ -97,3 +97,10 @@ datasets/wikivitals_new/__classes1.txt
 datasets/wikivitals_new/__links_filtered.txt
 test.md
 __pycache__/grid_search.cpython-39.pyc
+configs/assessment_GMNN.json
+configs/citeseer_FAGCN.json
+configs/cora_FAGCN.json
+configs/cora_GCN.json
+configs/cora_GMNN_use_GCN.json
+configs/cora_MLP.json
+configs/pubmed_FAGCN.json
