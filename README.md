@@ -1,15 +1,17 @@
-# Fair Evaluation of Graph Markov Neural Networks 
+# How Graph Structure and Label Dependencies Contribute to Node Classification in a Large Network of Documents
 
-This is a PyTorch implementation of A Fair Evaluation of Graph Markov Neural Networks
+A PyTorch implementation
 
 **Abstract**
 
-Graph Markov Neural Networks (GMNN) have recently been proposed to improve regular graph neural networks (GNN) by including label dependencies into the semi-supervised node classification task. They do this in a theoretically principled way and use three kinds of information to predict labels. Just like ordinary GNNs they use the node features and the graph structure but they moreover leverage information from the labels of neighboring nodes to improve the accuracy of their predictions. In this paper we introduce a new dataset named *WikiVitals* which contains a graph of 48k mutually referred Wikipedia articles classified into 32 categories and connected by 2.3M edges. Our aim is to rigorously evaluate the contributions of three distinct sources of information to the prediction accuracy of GMNN for this dataset: the content of the articles, their connections with each other and the correlations among their labels. For this purpose we adapt a method which was recently proposed for performing fair comparisons of GNN performance using an appropriate randomization over partitions and a clear separation of model selection and model assessment.
+We introduce a new data set named *WikiVitals* which contains a large graph of 48k mutually referred Wikipedia articles classified into 32 categories and connected by 2.3M edges. Our aim is to rigorously evaluate the contributions of three distinct sources of information to the label prediction in a semi-supervised node classification setting, namely the content of the articles, their connections with each other and the correlations among their labels. We perform this evaluation using a Graph Markov Neural Network which provides a theoretically principled model for this task and we conduct a detailed evaluation of the contributions of each sources of information using a clear separation of model selection and model assessment. One interesting observation is that including the effect of label dependencies is more relevant for sparse train sets than it is for dense train sets.
 
 
 ![TEST](./image_files/FC_GMNN.png)
 
+## WikiVitals dataset
 
+More infos about WikiVitals here: https://github.com/ToineSayan/wikivitals-lvl5-04-2022
 
 ## Requirements
 - Python > 3.10.6 
